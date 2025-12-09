@@ -1,7 +1,7 @@
 {
   "name": "@render/sdk",
   "version": "0.1.0",
-  "description": "Render Workflow SDK for TypeScript",
+  "description": "Render SDK for TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -38,6 +38,11 @@
     "node": ">=18.0.0"
   },
   "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
     "./workflows": {
       "import": "./dist/workflows/index.js",
       "require": "./dist/workflows/index.js",
