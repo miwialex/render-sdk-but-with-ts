@@ -1,4 +1,4 @@
-import { RenderError } from './client/errors.js';
+import { RenderError } from '../errors.js';
 import { TaskExecutor } from './executor.js';
 
 /**

@@ -1,9 +1,8 @@
-import createClient, { type Client as ApiClient } from 'openapi-fetch';
-import { AbortError, ClientError, RenderError, ServerError } from './errors.js';
-import type { paths } from './schema.js';
+import type { Client as ApiClient } from 'openapi-fetch';
+import { AbortError, ClientError, ServerError } from '../../errors.js';
+import type { paths } from '../../utils/schema.js';
 import { SSEClient } from './sse.js';
 import type {
-  ClientOptions,
   ListTaskRunsParams,
   TaskData,
   TaskIdentifier,
@@ -29,41 +28,18 @@ function handleApiError(error: any, response: Response, context: string): never 
 /**
  * Main Render SDK Client
  */
-export class Client {
-  public readonly sse: SSEClient;
-  public readonly apiClient: ApiClient<paths>;
+export class WorkflowsClient {
+  private readonly sse: SSEClient;
+  private readonly apiClient: ApiClient<paths>;
 
   /**
    * Create a new Render SDK client
    * @param options Client configuration options
    * @returns New client instance
    */
-  constructor(options?: ClientOptions) {
-    // Determine base URL
-    let baseUrl: string;
-    const useLocalDev = options?.useLocalDev ?? process.env.RENDER_USE_LOCAL_DEV === 'true';
-
-    if (useLocalDev) {
-      baseUrl = options?.localDevUrl || process.env.RENDER_LOCAL_DEV_URL || 'http://localhost:8120';
-    } else {
-      baseUrl = options?.baseUrl || 'https://api.render.com';
-    }
-
-    // Get token
-    const token = options?.token || process.env.RENDER_API_KEY;
-    if (!token) {
-      throw new RenderError(
-        'API token is required. Provide it via options.token or RENDER_API_KEY environment variable.'
-      );
-    }
-
+  constructor(apiClient: ApiClient<paths>, baseUrl: string, token: string) {
     this.sse = new SSEClient(baseUrl, token);
-    this.apiClient = createClient<paths>({
-      baseUrl: `${baseUrl}/v1`,
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    this.apiClient = apiClient;
   }
 
   async runTask(

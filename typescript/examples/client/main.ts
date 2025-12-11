@@ -1,5 +1,4 @@
-import { Render } from '@render/sdk';
-import { Client, ServerError } from '@render/sdk/workflows';
+import { Render, ServerError } from '@render/sdk';
 
 /**
  * Example: Using the REST API client to run tasks

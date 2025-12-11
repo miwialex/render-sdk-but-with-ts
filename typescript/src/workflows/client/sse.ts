@@ -1,5 +1,5 @@
 import { EventSource } from 'eventsource';
-import { AbortError } from './errors.js';
+import { AbortError } from '../../errors.js';
 import type { TaskRunDetails } from './types.js';
 
 /**

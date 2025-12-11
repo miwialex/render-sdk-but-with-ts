@@ -54,12 +54,12 @@ const taskRuns = await render.workflows.listTaskRuns({ limit: 10 });
 const details = await render.workflows.getTaskRun(result.id);
 ```
 
-Alternatively, you can use the workflows client directly:
+Alternatively, you can create a workflows client directly:
 
 ```typescript
-import { Client } from '@render/sdk/workflows';
+import { createWorkflowsClient } from '@render/sdk/workflows';
 
-const client = new Client();
+const client = createWorkflowsClient();
 const result = await client.runTask('my-workflow/my-task', [42, 'hello']);
 ```
 
@@ -140,12 +140,12 @@ const result = await render.workflows.runTask('my-workflow/task', [42]);
 
 ### Workflows Client API
 
-The workflows client is accessible via `render.workflows` or can be instantiated directly:
+The workflows client is accessible via `render.workflows` or can be created directly using `createWorkflowsClient`:
 
 ```typescript
-import { Client } from '@render/sdk/workflows';
+import { createWorkflowsClient } from '@render/sdk/workflows';
 
-const client = new Client({
+const client = createWorkflowsClient({
   token: 'your-api-token',
   baseUrl: 'https://api.render.com',
 });
@@ -333,7 +333,7 @@ import {
   ClientError,
   ServerError,
   AbortError,
-} from '@render/sdk/workflows';
+} from '@render/sdk';
 
 const render = new Render();
 
@@ -438,8 +438,7 @@ task(
 ### Example 4: Using AbortSignal for Cancellation
 
 ```typescript
-import { Render } from '@render/sdk';
-import { AbortError } from '@render/sdk/workflows';
+import { Render, AbortError } from '@render/sdk';
 
 const render = new Render();
 

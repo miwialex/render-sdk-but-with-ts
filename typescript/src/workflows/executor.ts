@@ -1,4 +1,4 @@
-import { RenderError } from './client/errors.js';
+import { RenderError } from '../errors.js';
 import { TaskRegistry } from './registry.js';
 import { setCurrentContext } from './task.js';
 import type { TaskContext, TaskFunction, TaskResult } from './types.js';
@@ -15,8 +15,8 @@ class TaskResultImpl<T> implements TaskResult<T> {
 
   async get(): Promise<T> {
     // Poll for subtask result
-    const maxAttempts = 120; // 10 minutes with 5 second intervals
-    const pollInterval = 500; // half a second seconds
+    const maxAttempts = 1200; // 10 minutes with 500 millisecond intervals
+    const pollInterval = 500; // half a second
 
     for (let i = 0; i < maxAttempts; i++) {
       const result = await this.udsClient.getSubtaskResult(this.subtaskId);

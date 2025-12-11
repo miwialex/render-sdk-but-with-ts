@@ -1,6 +1,6 @@
 import type { Client } from 'openapi-fetch';
-import { ClientError, ServerError } from './errors.js';
-import type { paths } from './schema.js';
+import { ClientError, ServerError } from '../../errors.js';
+import type { paths } from '../../utils/schema.js';
 import type { SSEClient } from './sse.js';
 import type {
   ListTaskRunsParams,

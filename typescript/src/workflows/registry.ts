@@ -32,7 +32,7 @@ export class TaskRegistry {
         retry: {
           max_retries: options.retry.maxRetries,
           wait_duration_ms: options.retry.maxRetries,
-          factor: options.retry.factor,
+          factor: options.retry.backoffScaling,
         },
       };
     }
